@@ -25,7 +25,6 @@ export default function Produto({ onSalvarDados, setTelaAtual }) {
 
     return (
         <View style={estilos.container}>
-            <Text style={estilos.cabecalho}> Armazenamento Local </Text>
             <View style={estilos.inputRow}>
                 <Text style={estilos.label}>Quantidade: </Text>
                 <TextInput
@@ -33,6 +32,7 @@ export default function Produto({ onSalvarDados, setTelaAtual }) {
                     onChangeText={setQTD}
                     style={[estilos.input, { width: '25%' }]}
                     maxLength={6}
+                    keyboardType='numeric'
                 />
             </View>
             <View style={estilos.inputRow}>
@@ -64,7 +64,7 @@ export default function Produto({ onSalvarDados, setTelaAtual }) {
                 <TouchableOpacity style={[estilos.botao, { margin: 10 }]} onPress={limparCampos}>
                     <Text style={estilos.botaoTexto}>Limpar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={estilos.botao} onPress={handleSalvar}>
+                <TouchableOpacity style={[estilos.botao, { margin: 10 }]} onPress={handleSalvar}>
                     <Text style={estilos.botaoTexto}>Salvar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[estilos.botao, { margin: 10 }]} onPress={() => setTelaAtual('registros')}>
@@ -109,15 +109,16 @@ const estilos = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         alignItems: 'center',
-        marginTop: 20
+        marginTop: 20,
+        margin: 10
     },
     botaoTexto: {
         color: '#fff',
-        fontSize: 16
+        fontSize: 18
     },
     cabecalho: {
-        marginTop: '10',
-        marginBottom: '40',
+        marginTop: 10, // Corrigido para ser um número
+        marginBottom: 40, // Corrigido para ser um número
         fontSize: 20,
         fontStyle: 'italic'
     }

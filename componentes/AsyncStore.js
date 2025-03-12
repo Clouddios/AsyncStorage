@@ -43,13 +43,42 @@ export default function Storage() {
         }
     };
 
+    const excluirRegistro = async (index) => {
+        try {
+            const registrosExistentes = await AsyncStorage.getItem('registros');
+            let registros = registrosExistentes ? JSON.parse(registrosExistentes) : [];
+
+            // Remove o registro pelo índice
+            registros.splice(index, 1);
+
+            // Armazena novamente no AsyncStorage
+            await AsyncStorage.setItem('registros', JSON.stringify(registros));
+
+            // Atualiza o estado
+            setRegistros(registros);
+
+            Alert.alert('Sucesso', 'Registro excluído com sucesso!');
+        } catch (error) {
+            console.error('Erro ao excluir registro do AsyncStorage', error);
+            Alert.alert('Erro', 'Ocorreu um erro ao excluir o registro.');
+        }
+    };
+
     return (
-        <View>
+        <View style={styles.container}>
             {telaAtual === 'cadastro' ? (
                 <Produto onSalvarDados={salvarNoAsyncStorage} setTelaAtual={() => { setTelaAtual('registros'); carregarRegistros(); }} />
             ) : (
-                <ListaRegistros registros={registros} voltarParaCadastro={() => setTelaAtual('cadastro')} />
+                <ListaRegistros registros={registros} voltarParaCadastro={() => setTelaAtual('cadastro')} excluirRegistro={excluirRegistro} />
             )}
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#fff'
+    }
+});
